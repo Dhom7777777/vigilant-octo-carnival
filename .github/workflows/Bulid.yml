@@ -1,0 +1,52 @@
+name: Build Haven IPA
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Install dependencies (CocoaPods — skip if unused)
+        run: |
+          if [ -f Podfile ]; then
+            pod install --repo-update
+          fi
+
+      - name: Build unsigned IPA
+        run: |
+          xcodebuild \
+            -project Haven.xcodeproj \
+            -scheme Haven \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            ONLY_ACTIVE_ARCH=NO
+
+      - name: Package IPA
+        run: |
+          mkdir -p output
+          APP_PATH=$(find build -name "Haven.app" | head -1)
+          mkdir Payload
+          cp -r "$APP_PATH" Payload/Haven.app
+          zip -r output/Haven.ipa Payload
+          rm -rf Payload
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Haven-IPA
+          path: output/Haven.ipa
+          retention-days: 30
