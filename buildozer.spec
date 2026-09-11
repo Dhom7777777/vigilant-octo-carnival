@@ -12,6 +12,7 @@ orientation = landscape
 fullscreen = 1
 
 android.permissions = READ_EXTERNAL_STORAGE,READ_MEDIA_VIDEO
+android.accept_sdk_license = True
 
 android.api = 33
 android.minapi = 21
