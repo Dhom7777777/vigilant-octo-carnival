@@ -6,7 +6,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 
-requirements = python3,kivy==2.3.0,pyjnius,android
+requirements = python3==3.11.9,kivy==2.3.1,pyjnius,android
 
 orientation = landscape
 fullscreen = 1
@@ -20,4 +20,4 @@ android.archs = arm64-v8a,armeabi-v7a
 
 [buildozer]
 log_level = 2
-warn_on_root = 1 
+warn_on_root = 1
