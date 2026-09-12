@@ -18,6 +18,10 @@ android.api = 33
 android.minapi = 21
 android.archs = arm64-v8a,armeabi-v7a
 
+# Local recipe overrides (see recipes/ffmpeg/__init__.py) — pins ffmpeg to
+# a version that still ships libavcodec/avfft.h, which ffpyplayer needs.
+p4a.local_recipes = ./recipes
+
 [buildozer]
 log_level = 2
 warn_on_root = 1
