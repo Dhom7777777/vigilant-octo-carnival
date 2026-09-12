@@ -6,7 +6,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
 
-requirements = python3,kivy==2.3.0,ffpyplayer
+requirements = python3,kivy==2.3.0,pyjnius,android
 
 orientation = landscape
 fullscreen = 1
@@ -18,10 +18,6 @@ android.api = 33
 android.minapi = 21
 android.archs = arm64-v8a,armeabi-v7a
 
-# Local recipe overrides (see recipes/ffmpeg/__init__.py) — pins ffmpeg to
-# a version that still ships libavcodec/avfft.h, which ffpyplayer needs.
-p4a.local_recipes = ./recipes
-
 [buildozer]
 log_level = 2
-warn_on_root = 1
+warn_on_root = 1 
